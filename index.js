@@ -1,11 +1,16 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const store = require('./store')
-const app = express()
-app.use(express.static('public'))
-app.use(bodyParser.json())
+const express = require('express');
+const bodyParser = require('body-parser');
+const store = require('./store');
+const app = express();
+app.use(express.static('public'));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ type: 'application/*+json' }));
+
+app.use(bodyParser.json());
+
 app.post('/createUser', (req, res) => {
-    console.log(req);
+    console.log(req.body);
     store
         .createUser({
             username: req.body.username,
